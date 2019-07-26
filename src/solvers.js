@@ -69,21 +69,21 @@ window.countNRooksSolutions = function(n) {
   var recursionCounter = n * n
 
   for (let i = 0; i < recursionCounter; i++) {
-    var board = new Board({n:n});
     for (let r = 0; r < n ; r++) {
-      let rows = board.rows()[r] //[0,0]
+      var board = new Board({n:n});
+      console.log(board);
       let row = r
 
       for(let c = 0; c < n ; c++) {
-        let column = rows[c];
+        let column = c;
         board.togglePiece(row,column);
-
+        console.log(board)
         solutions.push(board);
         }
-
     }
   }
   recursionCounter--;
+  //console.log(solutions)
 
         // increment rook position
       //
@@ -96,19 +96,19 @@ window.countNRooksSolutions = function(n) {
 
   var placeRooks = function() {
     var currentSolutions = solutions.slice(0, solutions.length-1);
+    // console.log(currentSolutions)
     //looping thru the boards
     for(let j = 0 ; j < currentSolutions.length ; j++) {
       let board = currentSolutions[j];
 
       // for each space add a rook starting at 0 row, 0 column
       for (let r = 0; r < n ; r++) {
-        let rows = board.rows()[r];
         let row = r;
         for(let c = 0; c < n ; c++) {
-          let column = row[c];
+          let column = c;
 
         // if there is no rook add rook
-        if (board[row][column] === 0){
+        if (board.rows()[row][column] === 0){
           board.togglePiece(row,column)
         }
 
@@ -130,6 +130,7 @@ window.countNRooksSolutions = function(n) {
   placeRooks();
   solutionCount = solutions.length;
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
+  console.log(solutions)
   return solutionCount;
 };
 
